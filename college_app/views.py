@@ -280,7 +280,8 @@ def logout(request):
     auth.logout(request)
     return redirect('index')
            
-   
+def test(request):
+    return render(request,request,'test.html')
         
 
 
