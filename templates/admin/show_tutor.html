@@ -1,0 +1,135 @@
+{% extends 'admin/base1.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body{
+         background-image: url("{% static 'images/college2.jpg'  %}");
+         background-size: cover;
+         width: 100%;
+         height: auto;
+         
+ 
+     }
+     table, th, td{
+            border: 2px solid ;
+            text-align: center;
+            height: 50%;
+            
+            
+        }
+        th{
+            font-size: 22px;
+            background-color: aquamarine;
+        }
+        td{
+            font-size: 18px;
+        }
+    .title{
+        margin: auto;
+    }
+    .de{
+        color: #fff;
+    }
+    .de:hover{
+    color: rgb(0, 255, 21);
+    }
+</style>
+
+<div class="container-fluid" style="margin-top:2%; ">
+   
+<h1 class="text-center" style="color: orange; "> SHOW TEACHER</h1>
+ <table style=" margin:auto;margin-top:30px;background-color: rgb(20, 229, 135);" width='80% '  >
+    <thead>
+    <tr>
+        
+        <th>Teacher Name</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Phone</th>
+        <th>Image</th>
+        <th>Action</th>
+
+        
+        
+        
+        
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in x %}
+    <tr>
+        
+        <td>{{ i.user.first_name}}    {{ i.user.last_name  }}</td>
+        <td>{{ i.Address  }}</td>
+        <td>{{ i.Gender  }}</td>
+        <td>{{ i.user.email}}</td>
+        <td>{{ i.Course.Course_Name}}</td>
+        <td>{{ i.Phone}}</td>
+        <td> {% if i.Image %}
+            <img src="{{i.Image.url }}" class="inp_image" width="100px" height="100px">
+            {% else %}
+            <img src="{% static 'images/default.png ' %}" class="inp_image" width="100px" height="80px">
+            {% endif %}</td>
+        
+        
+        <td> 
+            <button class="btn btn-danger"><a class=" de" href="" class="edit" data-toggle="modal">Replay</a></button>
+
+            
+           
+        </td>
+    </tr>
+    
+    {% endfor %}
+
+    {% for i in x  %}
+    <!-- Edit Modal HTML -->
+<div id="editCourseModal-{{forloop.counter}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="" > {% csrf_token %}
+                <div class="modal-header">						
+                    <h4 class="modal-title ">Edit Course</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">	
+
+                    <div class="input_field">
+                        <label> Student Name </label>
+                    <input type="text" class="input" name="Name " value="{{ i.Student_Name  }}">
+                </div>
+
+                <div class="input_field">
+                    <label> Address   </label>
+                <input type="text" class="input" name="address " value="{{ i.Address  }}">
+            </div>
+        
+                <div class="input_field">
+                    <label> Fee </label>
+                    
+                    <input type="text" class="input1" name="fee" value="{{ i.Fee  }}">
+                </div>
+        
+                 
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+ 
+
+
+
+</div>
+
+{% endblock %}
